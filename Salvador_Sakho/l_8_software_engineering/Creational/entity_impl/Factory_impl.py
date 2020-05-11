@@ -10,9 +10,14 @@ class MilitaryRobotFactory(AbstractFactory):
     def __init__(self):
         self.available_robots = ['RobotSoldier']
 
-    def create_robot(self, robot_class):
+    def create_robot(self, robot_class, number=None, supplies=None,
+                     speed=None):
         value = {
-            "RobotSoldier": lambda: RobotSoldier()
+            "RobotSoldier": lambda: RobotSoldier(
+                number
+                , supplies['bullets'] if supplies is not None else None
+                , speed
+            )
         }[robot_class.__name__]()
         return value
 
@@ -28,10 +33,20 @@ class CivilRobotFactory(AbstractFactory):
     def __init__(self):
         self.available_robots = ['RobotBuilder', 'NewRobot']
 
-    def create_robot(self, robot_class):
+    def create_robot(self, robot_class, number=None, supplies=None,
+                     speed=None):
         value = {
-            "RobotBuilder": lambda: RobotBuilder(),
-            "NewRobot": lambda: NewRobot()
+            "RobotBuilder": lambda: RobotBuilder(
+                number
+                , supplies['materials'] if supplies is not None else None
+                , speed
+            ),
+            "NewRobot": lambda: NewRobot(
+                number
+                , supplies['materials'] if supplies is not None else None
+                , supplies['bullets'] if supplies is not None else None
+                , speed
+            )
         }[robot_class.__name__]()
         return value
 

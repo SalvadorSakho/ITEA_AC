@@ -1,4 +1,4 @@
-from abc import ABC
+from abc import ABC, abstractmethod
 
 
 class Robot(ABC):
@@ -29,3 +29,7 @@ class Robot(ABC):
         for command in commands:
             for key, values in command.items():
                 self._speak(self._action(key, values))
+
+    @abstractmethod
+    def check_the_supplies(self, check_value_of):
+        pass

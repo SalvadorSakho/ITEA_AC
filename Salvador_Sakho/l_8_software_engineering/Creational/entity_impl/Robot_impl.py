@@ -5,10 +5,10 @@ from Salvador_Sakho.l_8_software_engineering.Creational.abstract_entity. \
 
 
 class RobotSoldier(Robot):
-    def __init__(self):
-        self.__number = randint(1, 10)
-        self._bullets = 100
-        self._speed = 20
+    def __init__(self, number=None, supplies=None, speed=None):
+        self._number = number if number is not None else randint(1, 100)
+        self._bullets = supplies if supplies is not None else 100
+        self._speed = speed if speed is not None else 100
 
     def _shoot(self, quantity=0):
         self._bullets -= quantity
@@ -19,7 +19,7 @@ class RobotSoldier(Robot):
             quantity -= 1
         return self._bullets
 
-    def check_the_state(self, check_value_of):
+    def check_the_supplies(self, check_value_of):
         {
             'number': lambda: print(f'My number is:{self._number}'),
             'bullets': lambda: print(f'Bullets left: {self._bullets}'),
@@ -28,10 +28,10 @@ class RobotSoldier(Robot):
 
 
 class RobotBuilder(Robot):
-    def __init__(self):
-        self._number = randint(1, 10)
-        self._materials = 100
-        self._speed = 10
+    def __init__(self, number=None, supplies=None, speed=None):
+        self._number = number if number is not None else randint(1, 100)
+        self._materials = supplies if supplies is not None else 100
+        self._speed = speed if speed is not None else 10
 
     def _build(self, what_to_build):
         self._materials = {
@@ -41,7 +41,7 @@ class RobotBuilder(Robot):
         }[what_to_build]()
         return self._materials
 
-    def check_the_state(self, check_value_of):
+    def check_the_supplies(self, check_value_of):
         return {
             'number': lambda: print(f'My number is:{self._number}'),
             'materials': lambda: print(f'Materials left: {self._materials}'),
@@ -50,6 +50,16 @@ class RobotBuilder(Robot):
 
 
 class NewRobot(Robot):
-    def __init__(self):
-        self._number = randint(1, 10)
-        self._speed = 15
+    def check_the_supplies(self, check_value_of):
+        return {
+            'number': lambda: print(f'My number is:{self._number}'),
+            'bullets': lambda: print(f'Bullets left: {self._bullets}'),
+            'materials': lambda: print(f'Materials left: {self._materials}'),
+            'speed': lambda: print(f'My speed is: {self._speed}')
+        }[check_value_of]()
+
+    def __init__(self, number=None, bullets=None, materials=None, speed=None):
+        self._number = number if number is not None else randint(1, 100)
+        self._bullets = bullets if bullets is not None else 100
+        self._materials = materials if materials is not None else 100
+        self._speed = speed if speed is not None else 200
